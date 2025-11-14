@@ -10,6 +10,7 @@ import cobalt2 from "./theme/cobalt2.json" with { type: "json" }
 import dracula from "./theme/dracula.json" with { type: "json" }
 import everforest from "./theme/everforest.json" with { type: "json" }
 import github from "./theme/github.json" with { type: "json" }
+import glimx from "./theme/glimx.json" with { type: "json" }
 import gruvbox from "./theme/gruvbox.json" with { type: "json" }
 import kanagawa from "./theme/kanagawa.json" with { type: "json" }
 import material from "./theme/material.json" with { type: "json" }
@@ -106,6 +107,7 @@ export const DEFAULT_THEMES: Record<string, ThemeJson> = {
   dracula,
   everforest,
   github,
+  glimx,
   gruvbox,
   kanagawa,
   material,
@@ -146,7 +148,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
     const [store, setStore] = createStore({
       themes: DEFAULT_THEMES,
       mode: props.mode,
-      active: (sync.data.config.theme ?? kv.get("theme", "opencode")) as string,
+      active: (sync.data.config.theme ?? kv.get("theme", "glimx")) as string,
       ready: false,
     })
 
@@ -171,7 +173,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
       })
 
     const values = createMemo(() => {
-      return resolveTheme(store.themes[store.active] ?? store.themes.opencode, store.mode)
+      return resolveTheme(store.themes[store.active] ?? store.themes.glimx, store.mode)
     })
 
     const syntax = createMemo(() => generateSyntax(values()))

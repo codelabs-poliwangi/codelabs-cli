@@ -1,0 +1,19 @@
+{
+  "templates": {
+    "node-typescript": {
+      "name": "Node.js + TypeScript",
+      "description": "Modern Node.js project with TypeScript, ESLint, and Prettier",
+      "file": "node-typescript.json"
+    },
+    "react-vite": {
+      "name": "React + Vite",
+      "description": "React application with Vite, TypeScript, and TailwindCSS",
+      "file": "react-vite.json"
+    },
+    "python-fastapi": {
+      "name": "Python + FastAPI",
+      "description": "Python FastAPI project with Poetry package manager",
+      "file": "python-fastapi.json"
+    }
+  }
+}

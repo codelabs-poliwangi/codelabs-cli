@@ -632,6 +632,80 @@ export namespace Config {
 
   export type Info = z.output<typeof Info>
 
+  function getDefaultMCPServers(): Record<string, Mcp> {
+    return {
+      filesystem: {
+        type: "local",
+        command: ["npx", "-y", "@modelcontextprotocol/server-filesystem", process.env.HOME || "~"],
+        enabled: true,
+        timeout: 5000,
+      },
+      git: {
+        type: "local",
+        command: ["uvx", "mcp-server-git", "--repository", "."],
+        enabled: true,
+        timeout: 5000,
+      },
+      "sequential-thinking": {
+        type: "local",
+        command: ["uvx", "mcp-server-sequential-thinking"],
+        enabled: true,
+        timeout: 5000,
+      },
+      fetch: {
+        type: "local",
+        command: ["uvx", "mcp-server-fetch"],
+        enabled: true,
+        timeout: 5000,
+      },
+      memory: {
+        type: "local",
+        command: ["npx", "-y", "@modelcontextprotocol/server-memory"],
+        enabled: true,
+        timeout: 5000,
+      },
+    }
+  }
+
+  function getDefaultPermissions(): Record<string, any> {
+    return {
+      bash: {
+        "cat *": "allow",
+        "cd *": "allow",
+        "chmod *": "ask",
+        "cp *": "ask",
+        "curl *": "ask",
+        "diff *": "allow",
+        "echo *": "allow",
+        "find *": "allow",
+        "git add *": "ask",
+        "git commit *": "ask",
+        "git push *": "ask",
+        "git pull *": "ask",
+        "git status *": "allow",
+        "git diff *": "allow",
+        "git log *": "allow",
+        "grep *": "allow",
+        "head *": "allow",
+        "ls *": "allow",
+        "mkdir *": "ask",
+        "mv *": "ask",
+        "npm install *": "ask",
+        "npm run *": "ask",
+        "pwd *": "allow",
+        "rm *": "ask",
+        "tail *": "allow",
+        "touch *": "ask",
+        "wc *": "allow",
+        "wget *": "ask",
+        "*": "ask",
+      },
+      edit: "ask",
+      write: "ask",
+      webfetch: "allow",
+    }
+  }
+
   export const global = lazy(async () => {
     let result: Info = pipe(
       {},
@@ -654,6 +728,14 @@ export namespace Config {
         await fs.unlink(path.join(Global.Path.config, "config"))
       })
       .catch(() => {})
+
+    if (!result.mcp || Object.keys(result.mcp).length === 0) {
+      result.mcp = getDefaultMCPServers()
+    }
+
+    if (!result.permission) {
+      result.permission = getDefaultPermissions()
+    }
 
     return result
   })

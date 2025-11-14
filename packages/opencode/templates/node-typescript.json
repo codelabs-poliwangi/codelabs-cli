@@ -1,0 +1,44 @@
+{
+  "name": "node-typescript",
+  "description": "Node.js with TypeScript, ESLint, and Prettier",
+  "files": {
+    "package.json": {
+      "name": "{{PROJECT_NAME}}",
+      "version": "1.0.0",
+      "type": "module",
+      "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "lint": "eslint .",
+        "format": "prettier --write ."
+      },
+      "devDependencies": {
+        "@types/node": "^22.0.0",
+        "@typescript-eslint/eslint-plugin": "^8.0.0",
+        "@typescript-eslint/parser": "^8.0.0",
+        "eslint": "^9.0.0",
+        "prettier": "^3.0.0",
+        "tsx": "^4.0.0",
+        "typescript": "^5.0.0"
+      }
+    },
+    "tsconfig.json": {
+      "compilerOptions": {
+        "target": "ES2022",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+      },
+      "include": ["src/**/*"],
+      "exclude": ["node_modules", "dist"]
+    },
+    "src/index.ts": "console.log('Hello from {{PROJECT_NAME}}!');\n",
+    ".gitignore": "node_modules/\ndist/\n.env\n*.log\n"
+  }
+}

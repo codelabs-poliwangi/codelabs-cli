@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Glimx - AI-powered terminal coding agent with free models, MCP support, and smart permissions">
+    <title>Glimx - AI-Powered Terminal Coding Agent</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8b7ff4;
+            --secondary: #4fc3f7;
+            --accent: #ff6ec7;
+            --bg-dark: #0d0d14;
+            --bg-light: #16161f;
+            --text: #e8e8f0;
+            --text-muted: #7a7a8c;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        .install-section {
+            background: rgba(139, 127, 244, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .install-code {
+            background: var(--bg-dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: var(--secondary);
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(139, 127, 244, 0.3);
+            transition: all 0.3s;
+        }
+
+        .feature:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 127, 244, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(139, 127, 244, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary);
+            color: var(--bg-dark);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            margin-top: 4rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(79, 195, 247, 0.2);
+            border: 1px solid var(--secondary);
+            border-radius: 20px;
+            color: var(--secondary);
+            margin: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            .tagline {
+                font-size: 1.2rem;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        pre {
+            background: var(--bg-dark);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        code {
+            color: var(--secondary);
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">GLIMX</div>
+            <p class="tagline">AI-Powered Terminal Coding Agent</p>
+            <div>
+                <span class="badge">🚀 Free Models</span>
+                <span class="badge">🧠 Sequential Thinking</span>
+                <span class="badge">🔒 Smart Permissions</span>
+                <span class="badge">💾 Memory System</span>
+            </div>
+        </header>
+
+        <div class="install-section">
+            <h2>Quick Install</h2>
+            <div class="install-code" id="install-command">curl -fsSL https://codelabs-poliwangi.github.io/glimx-cli/install.sh | bash</div>
+            <button class="copy-btn" onclick="copyInstall()">📋 Copy Install Command</button>
+        </div>
+
+        <section class="features">
+            <div class="feature">
+                <div class="feature-icon">🆓</div>
+                <h3>Free AI Models</h3>
+                <p>Works with Qwen, DeepSeek, Mistral, and more via OpenRouter, Groq, and Cerebras. No paid API required!</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🔌</div>
+                <h3>5 Default MCP Servers</h3>
+                <p>Filesystem, Git, Sequential Thinking, Web Fetch, and Memory - all pre-configured and ready to use.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>Sequential Thinking</h3>
+                <p>AI breaks down complex problems step-by-step with transparent reasoning process for better solutions.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h3>Smart Permissions</h3>
+                <p>Validates commands before execution. Ask for approval on dangerous operations like git push, rm, chmod.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">💾</div>
+                <h3>Memory System</h3>
+                <p>Knowledge graph persistence keeps context across sessions. AI remembers important facts and decisions.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast & Lightweight</h3>
+                <p>Built on Bun runtime. Ultra-fast startup and execution. Works entirely in your terminal.</p>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Get Started in Seconds</h2>
+            <p style="color: var(--text-muted); margin: 1rem 0;">Choose your preferred installation method</p>
+            
+            <div style="text-align: left; max-width: 600px; margin: 2rem auto;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">📦 NPM</h3>
+                <pre><code>npm install -g glimx</code></pre>
+
+                <h3 style="color: var(--primary); margin: 2rem 0 1rem;">🔧 Bun</h3>
+                <pre><code>bun install -g glimx</code></pre>
+
+                <h3 style="color: var(--primary); margin: 2rem 0 1rem;">⚙️ Configure Free Models</h3>
+                <pre><code># Get free API keys
+export GROQ_API_KEY="your-key"
+export OPENROUTER_API_KEY="your-key"
+
+# Run with free model
+glimx --model groq/qwen-32b</code></pre>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="https://github.com/codelabs-poliwangi/glimx-cli" class="btn btn-primary">⭐ Star on GitHub</a>
+                <a href="https://github.com/codelabs-poliwangi/glimx-cli/blob/main/README.md" class="btn btn-secondary">📚 Documentation</a>
+                <a href="https://github.com/codelabs-poliwangi/glimx-cli/blob/main/docs/FREE_MODELS.md" class="btn btn-secondary">🆓 Free Models Guide</a>
+            </div>
+        </section>
+
+        <section style="background: rgba(255, 255, 255, 0.03); border-radius: 12px; padding: 2rem; margin: 3rem 0;">
+            <h2 style="text-align: center; margin-bottom: 2rem;">✨ Key Features</h2>
+            <ul style="list-style: none; max-width: 800px; margin: 0 auto;">
+                <li style="padding: 1rem; margin: 0.5rem 0; background: rgba(139, 127, 244, 0.1); border-radius: 8px;">
+                    ✅ <span class="highlight">100% Open Source</span> - Built on OpenCode's proven architecture
+                </li>
+                <li style="padding: 1rem; margin: 0.5rem 0; background: rgba(139, 127, 244, 0.1); border-radius: 8px;">
+                    ✅ <span class="highlight">Provider Agnostic</span> - Works with Anthropic, OpenAI, Google, or local models
+                </li>
+                <li style="padding: 1rem; margin: 0.5rem 0; background: rgba(139, 127, 244, 0.1); border-radius: 8px;">
+                    ✅ <span class="highlight">LSP Support</span> - Out of the box language server protocol integration
+                </li>
+                <li style="padding: 1rem; margin: 0.5rem 0; background: rgba(139, 127, 244, 0.1); border-radius: 8px;">
+                    ✅ <span class="highlight">/compact Mode</span> - Summarize long sessions to save tokens
+                </li>
+                <li style="padding: 1rem; margin: 0.5rem 0; background: rgba(139, 127, 244, 0.1); border-radius: 8px;">
+                    ✅ <span class="highlight">Workspace Templates</span> - Quick start with Node.js, React, Python projects
+                </li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>Built with 💜 by CodeLabs Poliwangi • Powered by OpenCode</p>
+            <p style="margin-top: 1rem;">
+                <a href="https://github.com/codelabs-poliwangi/glimx-cli" style="color: var(--secondary); text-decoration: none;">GitHub</a> •
+                <a href="mailto:codelabs@poliwangi.ac.id" style="color: var(--secondary); text-decoration: none;">Email</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function copyInstall() {
+            const code = document.getElementById('install-command').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy Install Command';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
