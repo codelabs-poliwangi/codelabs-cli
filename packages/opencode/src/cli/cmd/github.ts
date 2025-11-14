@@ -181,7 +181,7 @@ export const GithubInstallCommand = cmd({
                 "",
                 "    3. Go to a GitHub issue and comment `/oc summarize` to see the agent in action",
                 "",
-                "   Learn more about the GitHub agent - https://opencode.ai/docs/github/#usage-examples",
+                "   Learn more about the GitHub agent - https://codelabs-poliwangi.github.io/glimx-cli/docs/README.md#github-integration",
               ].join("\n"),
             )
           }
@@ -308,7 +308,7 @@ export const GithubInstallCommand = cmd({
 
             async function getInstallation() {
               return await fetch(
-                `https://api.opencode.ai/get_github_app_installation?owner=${app.owner}&repo=${app.repo}`,
+                `https://codelabs-poliwangi.github.io/glimx-cli/api/get_github_app_installation?owner=${app.owner}&repo=${app.repo}`,
               )
                 .then((res) => res.json())
                 .then((data) => data.installation)
@@ -391,7 +391,7 @@ export const GithubRunCommand = cmd({
       const actor = context.actor
       const issueId = payload.issue.number
       const runUrl = `/${owner}/${repo}/actions/runs/${runId}`
-      const shareBaseUrl = isMock ? "https://dev.opencode.ai" : "https://opencode.ai"
+      const shareBaseUrl = isMock ? "https://codelabs-poliwangi.github.io/glimx-cli" : "https://codelabs-poliwangi.github.io/glimx-cli"
 
       let appToken: string
       let octoRest: Octokit
@@ -721,14 +721,14 @@ export const GithubRunCommand = cmd({
 
       async function exchangeForAppToken(token: string) {
         const response = token.startsWith("github_pat_")
-          ? await fetch("https://api.opencode.ai/exchange_github_app_token_with_pat", {
+          ? await fetch("https://codelabs-poliwangi.github.io/glimx-cli/api/exchange_github_app_token_with_pat", {
               method: "POST",
               headers: {
                 Authorization: `Bearer ${token}`,
               },
               body: JSON.stringify({ owner, repo }),
             })
-          : await fetch("https://api.opencode.ai/exchange_github_app_token", {
+          : await fetch("https://codelabs-poliwangi.github.io/glimx-cli/api/exchange_github_app_token", {
               method: "POST",
               headers: {
                 Authorization: `Bearer ${token}`,

@@ -11,7 +11,7 @@ export const ImportCommand = cmd({
   describe: "import session data from JSON file or URL",
   builder: (yargs: Argv) => {
     return yargs.positional("file", {
-      describe: "path to JSON file or opencode.ai share URL",
+      describe: "path to JSON file or Glimx CLI share URL",
       type: "string",
       demandOption: true,
     })
@@ -31,15 +31,15 @@ export const ImportCommand = cmd({
       const isUrl = args.file.startsWith("http://") || args.file.startsWith("https://")
 
       if (isUrl) {
-        const urlMatch = args.file.match(/https?:\/\/opencode\.ai\/s\/([a-zA-Z0-9_-]+)/)
+        const urlMatch = args.file.match(/https?:\/\/codelabs-poliwangi\.github\.io\/glimx-cli\/s\/([a-zA-Z0-9_-]+)/)
         if (!urlMatch) {
-          process.stdout.write(`Invalid URL format. Expected: https://opencode.ai/s/<slug>`)
+          process.stdout.write(`Invalid URL format. Expected: https://codelabs-poliwangi.github.io/glimx-cli/s/<slug>`)
           process.stdout.write(EOL)
           return
         }
 
         const slug = urlMatch[1]
-        const response = await fetch(`https://api.opencode.ai/share_data?id=${slug}`)
+        const response = await fetch(`https://codelabs-poliwangi.github.io/glimx-cli/api/share_data?id=${slug}`)
 
         if (!response.ok) {
           process.stdout.write(`Failed to fetch share data: ${response.statusText}`)
